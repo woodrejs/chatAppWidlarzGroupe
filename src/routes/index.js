@@ -15,8 +15,8 @@ export default Navigation = () => {
       <Stack.Navigator
         screenOptions={{ header: (route) => <CustomHeader route={route} /> }}
       >
-        <Stack.Screen name="Chat" component={Chat} />
         <Stack.Screen name="Rooms" component={Rooms} />
+        <Stack.Screen name="Chat" component={Chat} />
       </Stack.Navigator>
     </NavigationContainer>
   );

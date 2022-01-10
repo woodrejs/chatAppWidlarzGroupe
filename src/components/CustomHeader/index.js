@@ -8,10 +8,12 @@ export default CustomHeader = ({ route }) => {
   const routeName = route.route.name;
   const canGoBack = route.navigation.canGoBack();
 
+  const handlePress = () => route.navigation.goBack();
+
   return (
     <View style={styles.container}>
       {canGoBack && (
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={handlePress}>
           <View style={styles.arrowBox}>
             <CustomIcon name="leftArrow" />
           </View>
@@ -72,7 +74,7 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   header: { ...TEXT.heading.h1, color: COLORS.plum[500] },
-  userBox: { flexDirection: "row", alignItems: "center" },
+  userBox: { flexDirection: "row", alignItems: "center", flex: 1 },
   user: { ...TEXT.heading.h4, color: COLORS.plum[500] },
   status: {
     color: COLORS.white,
