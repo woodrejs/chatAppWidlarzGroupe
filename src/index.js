@@ -1,10 +1,17 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, SafeAreaView } from "react-native";
+import Navigation from "./routes";
 
 export const App = () => {
   return (
-    <View>
-      <Text>Work</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <Navigation />
+    </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
