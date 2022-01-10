@@ -5,16 +5,16 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Rooms from "../screens/Rooms";
 import Chat from "../screens/Chat";
 
-const Stack = createNativeStackNavigator();
+import CustomHeader from "../components/CustomHeader";
 
-const screenOptions = (route) => ({
-  //header: place for custom header,
-});
+const Stack = createNativeStackNavigator();
 
 export default Navigation = () => {
   return (
-    <NavigationContainer screenOptions={screenOptions}>
-      <Stack.Navigator>
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{ header: (route) => <CustomHeader route={route} /> }}
+      >
         <Stack.Screen name="Rooms" component={Rooms} />
         <Stack.Screen name="Chat" component={Chat} />
       </Stack.Navigator>

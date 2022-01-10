@@ -1,5 +1,7 @@
 import React from "react";
 import { ICONS } from "../../../style/icons";
+import { COLORS } from "../../../style/colors";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export default CustomIcon = ({ name }) => {
   switch (name) {
@@ -21,6 +23,15 @@ export default CustomIcon = ({ name }) => {
       return ICONS.visionLow();
     case "vision":
       return ICONS.vision();
+    case "leftArrow":
+      return (
+        <MaterialIcons
+          name="arrow-back-ios"
+          size={24}
+          color={COLORS.plum[500]}
+ 
+        />
+      );
     default:
       return null;
   }
