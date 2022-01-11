@@ -10,9 +10,10 @@ export default CustomInput = ({
   handleBlur,
   value,
   secure = false,
+  error,
 }) => {
   return (
-    <View>
+    <View style={styles.container}>
       <Text style={styles.label}>{label}</Text>
       <TextInput
         name={name}
@@ -22,15 +23,17 @@ export default CustomInput = ({
         value={value}
         secureTextEntry={secure}
       />
+      {error && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: { marginBottom: 16, position: "relative" },
   textInput: {
     backgroundColor: COLORS.white,
     height: 47,
-    marginBottom: 16,
+
     borderRadius: 10,
 
     padding: 12,
@@ -40,4 +43,11 @@ const styles = StyleSheet.create({
     margin: 0,
   },
   label: { ...TEXT.heading.h3, color: COLORS.blue[10], marginBottom: 4 },
+  error: {
+    fontSize: 12,
+    color: COLORS.error,
+    position: "absolute",
+    bottom: -18,
+    right: 0,
+  },
 });

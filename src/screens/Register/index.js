@@ -11,8 +11,38 @@ import { TEXT } from "../../../style/texts";
 import { Formik } from "formik";
 import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
+import * as yup from "yup";
+
+const registerValidationSchema = yup.object().shape({
+  email: yup
+    .string()
+    .email("Please enter valid email")
+    .required("Email Address is Required"),
+  firstName: yup
+    .string()
+    .min(3, ({ min }) => `First name must be at least ${min} characters`)
+    .required("First name is required"),
+  lastName: yup
+    .string()
+    .min(3, ({ min }) => `Last name must be at least ${min} characters`)
+    .required("Last name is required"),
+  password: yup
+    .string()
+    .min(8, ({ min }) => `Password must be at least ${min} characters`)
+    .required("Password is required"),
+  passwordConfirmation: yup
+    .string()
+    .oneOf([yup.ref("password")], "Passwords confirmation must match password.")
+    .required("Password confirmation is required"),
+});
 
 export default Register = () => {
+  const handlerSubmit = (values, { resetForm }) => {
+    if (values) {
+      resetForm();
+    }
+  };
+
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>Create account</Text>
@@ -25,9 +55,10 @@ export default Register = () => {
           password: "",
           passwordConfirmation: "",
         }}
-        onSubmit={(values) => console.log(values)}
+        validationSchema={registerValidationSchema}
+        onSubmit={handlerSubmit}
       >
-        {({ handleChange, handleBlur, handleSubmit, values }) => (
+        {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
           <>
             <CustomInput
               label="e-mail adress"
@@ -35,6 +66,7 @@ export default Register = () => {
               handleChange={handleChange}
               handleBlur={handleBlur}
               value={values.email}
+              error={errors.email}
             />
             <CustomInput
               label="first name"
@@ -42,6 +74,7 @@ export default Register = () => {
               handleChange={handleChange}
               handleBlur={handleBlur}
               value={values.firstName}
+              error={errors.firstName}
             />
             <CustomInput
               label="last name"
@@ -49,6 +82,7 @@ export default Register = () => {
               handleChange={handleChange}
               handleBlur={handleBlur}
               value={values.lastName}
+              error={errors.lastName}
             />
             <CustomInput
               label="password"
@@ -56,14 +90,17 @@ export default Register = () => {
               handleChange={handleChange}
               handleBlur={handleBlur}
               value={values.password}
+              error={errors.password}
               secure
             />
+
             <CustomInput
               label="password confirmation"
               name="passwordConfirmation"
               handleChange={handleChange}
               handleBlur={handleBlur}
               value={values.passwordConfirmation}
+              error={errors.passwordConfirmation}
               secure
             />
 
@@ -73,6 +110,7 @@ export default Register = () => {
           </>
         )}
       </Formik>
+
       <View style={styles.footer}>
         <Text style={styles.info}>By signing up you agree with</Text>
         <View style={styles.linkBox}>
@@ -81,6 +119,7 @@ export default Register = () => {
           <Text style={styles.link}>Privacy Policy</Text>
         </View>
       </View>
+
       <View style={styles.loginBox}>
         <Text style={styles.loginInfo}>Already have an acccount?</Text>
         <TouchableWithoutFeedback>
