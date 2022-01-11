@@ -9,35 +9,82 @@ import {
 import { StyleSheet } from "react-native";
 import { COLORS } from "../../../style/colors";
 import CustomIcon from "../../components/CustomIcon";
+import { gql, useMutation, useQuery } from "@apollo/client";
 
-export default Chat = () => {
+const SEND_MESSAGE = gql`
+  mutation sendMessage($body: String!, $roomId: String!) {
+    sendMessage(body: $body, roomId: $roomId) {
+      id
+      body
+      insertedAt
+      user {
+        id
+      }
+    }
+  }
+`;
+const GET_SINGLE_ROOM = gql`
+  query getSingleRoom($id: String!) {
+    room(id: $id) {
+      id
+      name
+      user {
+        id
+        firstName
+        lastName
+      }
+      messages {
+        id
+        body
+        id
+        insertedAt
+        user {
+          id
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+`;
+
+export default Chat = ({ route }) => {
   const [messages, setMessages] = useState([]);
+  const { roomId } = route.params;
+  const [sendMessage] = useMutation(SEND_MESSAGE);
+  const { loading, error, data } = useQuery(GET_SINGLE_ROOM, {
+    variables: { id: roomId },
+    pollInterval: 500,
+  });
 
   useEffect(() => {
-    setMessages([
-      {
-        _id: 1,
-        text: "Hello developer",
-        //createdAt: new Date(),
+    if (data) {
+      const posts = data.room.messages.map(({ id, body, insertedAt, user }) => ({
+        _id: id,
+        text: body,
+        createdAt: insertedAt,
         user: {
-          _id: 2,
-          name: "React Native",
-          avatar: "https://placeimg.com/140/140/any",
+          _id: user.id,
+          name: `${user.firstName} ${user.lastName}`,
         },
-      },
-    ]);
-  }, []);
+      }));
+      setMessages(posts);
+    }
+  }, [data]);
 
   const onSend = useCallback((messages = []) => {
     setMessages((previousMessages) => GiftedChat.append(previousMessages, messages));
+    sendMessage({ variables: { body: messages[0].text, roomId } });
   }, []);
+
+  if (!data) return null;
 
   return (
     <GiftedChat
       messages={messages}
       onSend={(messages) => onSend(messages)}
       user={{
-        _id: 1,
+        _id: data.room.user.id,
       }}
       renderBubble={renderBubble}
       renderInputToolbar={renderInputToolbar}

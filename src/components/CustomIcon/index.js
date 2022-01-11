@@ -24,14 +24,7 @@ export default CustomIcon = ({ name }) => {
     case "vision":
       return ICONS.vision();
     case "leftArrow":
-      return (
-        <MaterialIcons
-          name="arrow-back-ios"
-          size={24}
-          color={COLORS.plum[500]}
- 
-        />
-      );
+      return <MaterialIcons name="arrow-back-ios" size={24} color={COLORS.plum[500]} />;
     default:
       return null;
   }
