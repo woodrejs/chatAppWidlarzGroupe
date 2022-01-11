@@ -7,8 +7,11 @@ import CustomIcon from "../CustomIcon";
 import { useQuery } from "@apollo/client";
 import { QUERIES } from "../../utils/queries";
 import { isActive } from "./index.utils";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../redux/chat.slice";
 
 export default SingleRoom = ({ id }) => {
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const { loading, error, data } = useQuery(QUERIES.GET_SINGLE_ROOM, {
     variables: { id },
@@ -17,12 +20,19 @@ export default SingleRoom = ({ id }) => {
 
   if (!data) return null;
 
-  const handlePress = () =>
+  const status = isActive(data.room.messages[0].insertedAt);
+
+  const handlePress = () => {
+    const userName = `${data.room.user.firstName} ${data.room.user.lastName}`;
+    const lastActivity = status ? true : false;
+    const avatar = null;
+
+    dispatch(setUser([userName, lastActivity, avatar]));
+
     navigation.navigate("Chat", {
       roomId: data.room.id,
     });
-
-  const status = isActive(data.room.messages[0].insertedAt);
+  };
 
   return (
     <TouchableWithoutFeedback onPress={handlePress}>

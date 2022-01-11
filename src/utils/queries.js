@@ -19,6 +19,10 @@ export const QUERIES = {
           body
           insertedAt
         }
+        user {
+          firstName
+          lastName
+        }
       }
     }
   `,

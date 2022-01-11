@@ -3,10 +3,12 @@ import { StyleSheet, Text, View, Image, TouchableWithoutFeedback } from "react-n
 import { COLORS } from "../../../style/colors";
 import { TEXT } from "../../../style/texts";
 import CustomIcon from "../CustomIcon";
+import { useSelector } from "react-redux";
 
 export default CustomHeader = ({ route }) => {
   const routeName = route.route.name;
   const canGoBack = route.navigation.canGoBack();
+  const { avatar, lastActivity, name } = useSelector(({ chatSlice }) => chatSlice.user);
 
   const handlePress = () => route.navigation.goBack();
 
@@ -23,10 +25,12 @@ export default CustomHeader = ({ route }) => {
       {routeName === "Chat" && (
         <>
           <View style={styles.userBox}>
-            <Image style={styles.avatar} />
+            <Image style={styles.avatar} source={{ uri: avatar }} />
             <View>
-              <Text style={styles.user}>The Widlarz Groupe</Text>
-              <Text style={styles.status}>Active now</Text>
+              <Text style={styles.user}>{name}</Text>
+              <Text style={styles.status}>
+                {lastActivity ? " Not active" : "Active now"}
+              </Text>
             </View>
           </View>
 
@@ -70,7 +74,7 @@ const styles = StyleSheet.create({
     height: 44,
     width: 44,
     borderRadius: 50,
-    backgroundColor: "red",
+    backgroundColor: COLORS.gray[300],
     marginRight: 12,
   },
   header: { ...TEXT.heading.h1, color: COLORS.plum[500] },
