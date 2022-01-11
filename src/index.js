@@ -1,12 +1,13 @@
 import React from "react";
-import { StyleSheet, Text, SafeAreaView } from "react-native";
+import { StyleSheet } from "react-native";
 import Navigation from "./routes";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 export const App = () => {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaProvider style={styles.container}>
       <Navigation />
-    </SafeAreaView>
+    </SafeAreaProvider>
   );
 };
 
