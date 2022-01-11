@@ -36,15 +36,32 @@ export default SingleRoom = ({ id }) => {
 
   return (
     <TouchableWithoutFeedback onPress={handlePress}>
-      <View style={styles.container}>
+      <View
+        style={{
+          ...styles.container,
+          backgroundColor: status ? COLORS.white : COLORS.plum[500],
+        }}
+      >
         <View style={styles.avatar}>
           <CustomIcon name="profile" />
         </View>
         <View style={styles.contentBox}>
-          <Text style={styles.title} numberOfLines={1}>
+          <Text
+            style={{
+              ...styles.title,
+              color: status ? COLORS.black : COLORS.white,
+            }}
+            numberOfLines={1}
+          >
             {data.room.name}
           </Text>
-          <Text style={styles.subTitle} numberOfLines={1}>
+          <Text
+            style={{
+              ...styles.subTitle,
+              color: status ? COLORS.black : COLORS.blue[100],
+            }}
+            numberOfLines={1}
+          >
             {data.room.messages[0].body}
           </Text>
         </View>
@@ -63,7 +80,6 @@ export default SingleRoom = ({ id }) => {
 const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
-    backgroundColor: COLORS.plum[500],
     borderRadius: 12,
     marginBottom: 12,
     paddingHorizontal: 16,
@@ -87,7 +103,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontStyle: "normal",
     lineHeight: 16.71,
-    color: COLORS.blue[100],
+
     maxWidth: "80%",
   },
   statusBox: {

@@ -12,7 +12,7 @@ export function secondsToTime(millis) {
 
   if (days > 1) return `${days} d ago`;
   if (hours > 1) return `${hours} h ago`;
-  if (minutes > 2) return `${minutes} m ago`;
+  if (minutes > 5) return `${minutes} m ago`;
 
   return 0;
 }

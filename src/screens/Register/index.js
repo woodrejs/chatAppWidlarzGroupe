@@ -38,6 +38,7 @@ export default Register = () => {
   const handlerSubmit = (values, { resetForm }) => {
     if (values) {
       resetForm();
+      navigation.navigate("Rooms");
     }
   };
   const handlePress = () => navigation.navigate("Login");

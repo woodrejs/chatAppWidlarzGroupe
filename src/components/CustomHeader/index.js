@@ -14,7 +14,7 @@ export default CustomHeader = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      {canGoBack && (
+      {canGoBack && routeName !== "Rooms" && (
         <TouchableWithoutFeedback onPress={handlePress}>
           <View style={styles.arrowBox}>
             <CustomIcon name="leftArrow" />

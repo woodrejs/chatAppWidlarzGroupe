@@ -7,7 +7,6 @@ import Chat from "../screens/Chat";
 import Register from "../screens/Register";
 import Login from "../screens/Login";
 import Intro from "../screens/Intro";
-
 import CustomHeader from "../components/CustomHeader";
 
 const Stack = createNativeStackNavigator();
