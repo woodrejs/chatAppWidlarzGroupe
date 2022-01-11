@@ -104,7 +104,11 @@ export default Register = () => {
             />
 
             <View style={styles.buttonBox}>
-              <CustomButton handlePress={handleSubmit} label="Sign up" />
+              <CustomButton
+                handlePress={handleSubmit}
+                label="Sign up"
+                isDisabled={errors}
+              />
             </View>
           </>
         )}

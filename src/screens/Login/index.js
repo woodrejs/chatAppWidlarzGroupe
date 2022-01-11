@@ -63,7 +63,11 @@ export default Login = () => {
             />
 
             <View style={styles.buttonBox}>
-              <CustomButton handlePress={handleSubmit} label="Log in" />
+              <CustomButton
+                handlePress={handleSubmit}
+                label="Log in"
+                isDisabled={errors}
+              />
             </View>
           </View>
         )}
