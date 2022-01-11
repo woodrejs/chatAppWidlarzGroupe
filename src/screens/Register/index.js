@@ -1,16 +1,12 @@
 import React from "react";
-import {
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { StyleSheet, ScrollView, View, Text, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { COLORS } from "../../../style/colors";
 import { TEXT } from "../../../style/texts";
 import { Formik } from "formik";
 import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
+import OpenURLWrapper from "../../components/OpenURLWrapper";
 import * as yup from "yup";
 
 const registerValidationSchema = yup.object().shape({
@@ -37,11 +33,14 @@ const registerValidationSchema = yup.object().shape({
 });
 
 export default Register = () => {
+  const navigation = useNavigation();
+
   const handlerSubmit = (values, { resetForm }) => {
     if (values) {
       resetForm();
     }
   };
+  const handlePress = () => navigation.navigate("Login");
 
   return (
     <ScrollView style={styles.container}>
@@ -114,17 +113,21 @@ export default Register = () => {
       <View style={styles.footer}>
         <Text style={styles.info}>By signing up you agree with</Text>
         <View style={styles.linkBox}>
-          <Text style={styles.link}>Terms and Conditions</Text>
+          <OpenURLWrapper url="#">
+            <Text style={styles.link}>Terms and Conditions</Text>
+          </OpenURLWrapper>
           <Text style={styles.info}> and </Text>
-          <Text style={styles.link}>Privacy Policy</Text>
+          <OpenURLWrapper url="#">
+            <Text style={styles.link}>Privacy Policy</Text>
+          </OpenURLWrapper>
         </View>
       </View>
 
       <View style={styles.loginBox}>
         <Text style={styles.loginInfo}>Already have an acccount?</Text>
-        <TouchableWithoutFeedback>
+        <TouchableOpacity onPress={handlePress}>
           <Text style={styles.loginLink}>Log in</Text>
-        </TouchableWithoutFeedback>
+        </TouchableOpacity>
       </View>
     </ScrollView>
   );
