@@ -4,37 +4,13 @@ import { TEXT } from "../../../style/texts";
 import { COLORS } from "../../../style/colors";
 import { useNavigation } from "@react-navigation/native";
 import CustomIcon from "../CustomIcon";
-import moment from "moment";
-import { useQuery, gql } from "@apollo/client";
-
-const GET_SINGLE_ROOM = gql`
-  query getSingleRoom($id: String!) {
-    room(id: $id) {
-      id
-      name
-      user {
-        id
-        firstName
-        lastName
-      }
-      messages {
-        id
-        body
-        id
-        insertedAt
-        user {
-          id
-          firstName
-          lastName
-        }
-      }
-    }
-  }
-`;
+import { useQuery } from "@apollo/client";
+import { QUERIES } from "../../utils/queries";
+import { isActive } from "./index.utils";
 
 export default SingleRoom = ({ id }) => {
   const navigation = useNavigation();
-  const { loading, error, data } = useQuery(GET_SINGLE_ROOM, {
+  const { loading, error, data } = useQuery(QUERIES.GET_SINGLE_ROOM, {
     variables: { id },
     pollInterval: 500,
   });
@@ -118,20 +94,3 @@ const styles = StyleSheet.create({
     lineHeight: 16,
   },
 });
-
-function isActive(lastMessageDate) {
-  const lastPost = moment(lastMessageDate).unix();
-  const today = moment().unix();
-  return secondsToTime(today - lastPost);
-}
-function secondsToTime(millis) {
-  const days = Math.floor(millis / (24 * 60 * 60));
-  const hours = Math.floor((millis / (60 * 60)) % 24);
-  const minutes = Math.floor((millis / 60) % 60);
-
-  if (days) return `${days} d ago`;
-  if (hours) return `${hours} h ago`;
-  if (minutes > 2) return `${minutes} m ago`;
-
-  return 0;
-}
