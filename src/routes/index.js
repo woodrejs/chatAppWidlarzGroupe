@@ -5,6 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Rooms from "../screens/Rooms";
 import Chat from "../screens/Chat";
 import Register from "../screens/Register";
+import Login from "../screens/Login";
 
 import CustomHeader from "../components/CustomHeader";
 
@@ -19,6 +20,11 @@ export default Navigation = () => {
         <Stack.Screen
           name="Register"
           component={Register}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Login"
+          component={Login}
           options={{ headerShown: false }}
         />
         <Stack.Screen name="Rooms" component={Rooms} />
