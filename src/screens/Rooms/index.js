@@ -1,10 +1,12 @@
 import React from "react";
-import { StyleSheet, View, ScrollView, Text } from "react-native";
+import { StyleSheet, View, ScrollView, Text, ActivityIndicator } from "react-native";
 import SingleRoom from "../../components/SingleRoom";
 import { COLORS } from "../../../style/colors";
 import { useQuery } from "@apollo/client";
 import { QUERIES } from "../../utils/queries";
 import useError from "../../hooks/useError";
+import { TEXT } from "../../../style/texts";
+import Loader from "../../components/Loader";
 
 export default Rooms = () => {
   const { showErrorModal } = useError();
@@ -14,18 +16,22 @@ export default Rooms = () => {
     showErrorModal("Something went wrong while retrieving data. Try again.");
   }
 
-  if (loading)
-    return (
-      <View>
-        <Text>Loading ...</Text>
-      </View>
-    );
+  if (loading) return <Loader color={COLORS.blue[100]} />;
 
   if (!data) return null;
 
+  const rooms = data?.usersRooms?.rooms ?? [];
+
+  if (!rooms.length)
+    return (
+      <View style={styles.box}>
+        <Text style={styles.header}>No rooms</Text>
+      </View>
+    );
+
   return (
     <ScrollView style={styles.container}>
-      {data.usersRooms.rooms.map(({ id, name }) => (
+      {rooms.map(({ id, name }) => (
         <SingleRoom key={id} id={id} name={name} />
       ))}
     </ScrollView>
@@ -33,5 +39,11 @@ export default Rooms = () => {
 };
 
 const styles = StyleSheet.create({
-  container: { paddingTop: 36, backgroundColor: COLORS.blue[100] },
+  container: { paddingTop: 36, backgroundColor: COLORS.blue[100], flex: 1 },
+  box: {
+    justifyContent: "center",
+    alignItems: "center",
+    flex: 1,
+  },
+  header: { ...TEXT.heading.h3, color: COLORS.gray[500] },
 });

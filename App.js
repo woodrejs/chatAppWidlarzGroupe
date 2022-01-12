@@ -7,15 +7,11 @@ import store from "./src/redux/store";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { StyleSheet } from "react-native";
 
+
 export default () => {
   const [isLoaded] = useFonts(FONTS);
 
-  if (!isLoaded)
-    return (
-      <View>
-        <Text>Loading ...</Text>
-      </View>
-    );
+  if (!isLoaded) return null;
 
   return (
     <Provider store={store}>

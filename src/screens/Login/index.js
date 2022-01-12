@@ -12,6 +12,7 @@ import { useMutation } from "@apollo/client";
 import { login } from "../../redux/auth.slice";
 import { useDispatch } from "react-redux";
 import useError from "../../hooks/useError";
+import Loader from "../../components/Loader";
 
 const loginValidationSchema = yup.object().shape({
   email: yup
@@ -28,7 +29,7 @@ export default Login = () => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { showErrorModal } = useError();
-  const [loginUser] = useMutation(QUERIES.LOGIN_USER);
+  const [loginUser, { loading }] = useMutation(QUERIES.LOGIN_USER);
 
   const handlerSubmit = async (values, { resetForm }) => {
     if (values) {
@@ -45,6 +46,8 @@ export default Login = () => {
     }
   };
   const handlePress = () => navigation.navigate("Register");
+
+  if (loading) return <Loader color={COLORS.blue[300]} />;
 
   return (
     <ScrollView style={styles.container}>
