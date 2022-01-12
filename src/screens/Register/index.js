@@ -8,6 +8,11 @@ import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
 import OpenURLWrapper from "../../components/OpenURLWrapper";
 import * as yup from "yup";
+import { QUERIES } from "../../utils/queries";
+import { useMutation } from "@apollo/client";
+import { login } from "../../redux/auth.slice";
+import { useDispatch } from "react-redux";
+import useError from "../../hooks/useError";
 
 const registerValidationSchema = yup.object().shape({
   email: yup
@@ -34,11 +39,26 @@ const registerValidationSchema = yup.object().shape({
 
 export default Register = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const { showErrorModal } = useError();
+  const [registerUser] = useMutation(QUERIES.REGISTER_USER);
+  const [loginUser] = useMutation(QUERIES.LOGIN_USER);
 
-  const handlerSubmit = (values, { resetForm }) => {
+  const handlerSubmit = async (values, { resetForm }) => {
     if (values) {
-      resetForm();
-      navigation.navigate("Rooms");
+      try {
+        await registerUser({ variables: values });
+        const resp = await loginUser({
+          variables: { email: values.email, password: values.password },
+        });
+
+        dispatch(login([resp.data.loginUser.token, resp.data.loginUser.user]));
+        resetForm();
+        navigation.navigate("Rooms");
+      } catch (error) {
+        console.log(error);
+        showErrorModal("Sorry, there was an register error. Try again.");
+      }
     }
   };
   const handlePress = () => navigation.navigate("Login");

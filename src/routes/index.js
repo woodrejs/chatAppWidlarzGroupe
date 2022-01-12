@@ -19,7 +19,6 @@ export default Navigation = () => {
           header: (route) => <CustomHeader route={route} />,
         }}
       >
-        <Stack.Screen name="Rooms" component={Rooms} />
         <Stack.Screen name="Intro" component={Intro} options={{ headerShown: false }} />
         <Stack.Screen
           name="Register"
@@ -27,6 +26,7 @@ export default Navigation = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name="Rooms" component={Rooms} />
         <Stack.Screen name="Chat" component={Chat} />
       </Stack.Navigator>
     </NavigationContainer>

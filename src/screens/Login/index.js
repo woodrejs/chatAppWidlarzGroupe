@@ -7,6 +7,11 @@ import { Formik } from "formik";
 import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
 import * as yup from "yup";
+import { QUERIES } from "../../utils/queries";
+import { useMutation } from "@apollo/client";
+import { login } from "../../redux/auth.slice";
+import { useDispatch } from "react-redux";
+import useError from "../../hooks/useError";
 
 const loginValidationSchema = yup.object().shape({
   email: yup
@@ -21,11 +26,22 @@ const loginValidationSchema = yup.object().shape({
 
 export default Login = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const { showErrorModal } = useError();
+  const [loginUser] = useMutation(QUERIES.LOGIN_USER);
 
-  const handlerSubmit = (values, { resetForm }) => {
+  const handlerSubmit = async (values, { resetForm }) => {
     if (values) {
-      navigation.navigate("Rooms");
-      resetForm();
+      try {
+        const resp = await loginUser({
+          variables: { email: values.email, password: values.password },
+        });
+        dispatch(login([resp.data.loginUser.token, resp.data.loginUser.user]));
+        resetForm();
+        navigation.navigate("Rooms");
+      } catch (error) {
+        showErrorModal("Sorry, there was an login error. Try again.");
+      }
     }
   };
   const handlePress = () => navigation.navigate("Register");
