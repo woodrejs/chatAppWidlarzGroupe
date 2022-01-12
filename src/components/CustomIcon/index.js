@@ -1,7 +1,7 @@
 import React from "react";
 import { ICONS } from "../../../style/icons";
 import { COLORS } from "../../../style/colors";
-import { MaterialIcons } from "@expo/vector-icons";
+import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 
 export default CustomIcon = ({ name }) => {
   switch (name) {
@@ -25,6 +25,8 @@ export default CustomIcon = ({ name }) => {
       return ICONS.vision();
     case "leftArrow":
       return <MaterialIcons name="arrow-back-ios" size={24} color={COLORS.plum[500]} />;
+    case "close":
+      return <AntDesign name="closecircle" size={21} color={COLORS.gray[300]} />;
     default:
       return null;
   }

@@ -9,14 +9,20 @@ import { QUERIES } from "../../utils/queries";
 import { isActive } from "./index.utils";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/chat.slice";
+import useError from "../../hooks/useError";
 
 export default SingleRoom = ({ id }) => {
   const dispatch = useDispatch();
+  const { showErrorModal } = useError();
   const navigation = useNavigation();
   const { loading, error, data } = useQuery(QUERIES.GET_SINGLE_ROOM, {
     variables: { id },
     pollInterval: 500,
   });
+
+  if (error) {
+    showErrorModal("Something went wrong while retrieving data. Try again.");
+  }
 
   if (!data) return null;
 

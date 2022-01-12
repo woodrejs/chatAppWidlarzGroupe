@@ -24,8 +24,8 @@ export default Login = () => {
 
   const handlerSubmit = (values, { resetForm }) => {
     if (values) {
-      resetForm();
       navigation.navigate("Rooms");
+      resetForm();
     }
   };
   const handlePress = () => navigation.navigate("Register");

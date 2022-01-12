@@ -4,17 +4,17 @@ const errorSlice = createSlice({
   name: "errorSlice",
   initialState: {
     message: null,
-    isOpen: false,
+    isError: false,
   },
   reducers: {
     setError(state, action) {
       const message = action.payload;
       state.message = message;
-      state.isOpen = true;
+      state.isError = true;
     },
     closeError(state) {
       state.message = null;
-      state.isOpen = false;
+      state.isError = false;
     },
   },
 });

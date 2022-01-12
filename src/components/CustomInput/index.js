@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, View, Text, TextInput } from "react-native";
+import { StyleSheet, View, Text, TextInput, TouchableOpacity } from "react-native";
 import { COLORS } from "../../../style/colors";
 import { TEXT } from "../../../style/texts";
 import { getBorderColor } from "./index.utils";
@@ -13,6 +13,7 @@ export default CustomInput = ({
   value,
   secure = false,
   error,
+  handleClear,
 }) => {
   const [isFocus, setIsFocus] = useState(false);
 
@@ -37,8 +38,8 @@ export default CustomInput = ({
         value={value}
         secureTextEntry={secure}
       />
-      {secure && (
-        <View style={styles.vision}>
+      {secure && !isFocus && (
+        <View style={styles.badge}>
           <CustomIcon name="visionLow" />
         </View>
       )}
@@ -69,5 +70,5 @@ const styles = StyleSheet.create({
     bottom: -18,
     right: 0,
   },
-  vision: { position: "absolute", right: 16, bottom: 16 },
+  badge: { position: "absolute", right: 16, bottom: 16 },
 });

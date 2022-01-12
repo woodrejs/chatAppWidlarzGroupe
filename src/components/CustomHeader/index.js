@@ -14,47 +14,52 @@ export default CustomHeader = ({ route }) => {
 
   return (
     <View style={styles.container}>
-      {canGoBack && routeName !== "Rooms" && (
-        <TouchableWithoutFeedback onPress={handlePress}>
-          <View style={styles.arrowBox}>
-            <CustomIcon name="leftArrow" />
-          </View>
-        </TouchableWithoutFeedback>
-      )}
-
-      {routeName === "Chat" && (
-        <>
-          <View style={styles.userBox}>
-            <Image style={styles.avatar} source={{ uri: avatar }} />
-            <View>
-              <Text style={styles.user}>{name}</Text>
-              <Text style={styles.status}>
-                {lastActivity ? " Not active" : "Active now"}
-              </Text>
+      <View style={styles.box}>
+        {canGoBack && routeName !== "Rooms" && (
+          <TouchableWithoutFeedback onPress={handlePress}>
+            <View style={styles.arrowBox}>
+              <CustomIcon name="leftArrow" />
             </View>
-          </View>
+          </TouchableWithoutFeedback>
+        )}
 
-          <View style={styles.iconBox}>
-            <CustomIcon name="phone" />
-            <CustomIcon name="videocall" />
-          </View>
-        </>
-      )}
-      {routeName !== "Chat" && (
-        <>
-          <Text style={styles.header}>{routeName}</Text>
-          <View style={styles.iconBox}>
-            <CustomIcon name="search" />
-            <CustomIcon name="rooms" />
-          </View>
-        </>
-      )}
+        {routeName === "Chat" && (
+          <>
+            <View style={styles.userBox}>
+              <Image style={styles.avatar} source={{ uri: avatar }} />
+              <View>
+                <Text style={styles.user}>{name}</Text>
+                <Text style={styles.status}>
+                  {lastActivity ? " Not active" : "Active now"}
+                </Text>
+              </View>
+            </View>
+
+            <View style={styles.iconBox}>
+              <CustomIcon name="phone" />
+              <CustomIcon name="videocall" />
+            </View>
+          </>
+        )}
+        {routeName !== "Chat" && (
+          <>
+            <Text style={styles.header}>{routeName}</Text>
+            <View style={styles.iconBox}>
+              <CustomIcon name="search" />
+              <CustomIcon name="rooms" />
+            </View>
+          </>
+        )}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: COLORS.blue[100],
+  },
+  box: {
     backgroundColor: COLORS.blue[300],
     height: 120,
     borderBottomEndRadius: 24,

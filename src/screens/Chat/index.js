@@ -3,12 +3,18 @@ import { GiftedChat } from "react-native-gifted-chat";
 import { useMutation, useQuery } from "@apollo/client";
 import { QUERIES } from "../../utils/queries";
 import { renderInputToolbar, renderBubble } from "./index.utils";
+import useError from "../../hooks/useError";
 
 export default Chat = ({ route }) => {
   const [messages, setMessages] = useState([]);
   const { roomId } = route.params;
-  const [sendMessage] = useMutation(QUERIES.SEND_MESSAGE);
-  const { loading, error, data } = useQuery(QUERIES.GET_CHAT_ROOM, {
+  const { showErrorModal } = useError();
+  const [sendMessage, { error: mutationError }] = useMutation(QUERIES.SEND_MESSAGE);
+  const {
+    loading,
+    error: querieError,
+    data,
+  } = useQuery(QUERIES.GET_CHAT_ROOM, {
     variables: { id: roomId },
     pollInterval: 500,
   });
@@ -34,6 +40,13 @@ export default Chat = ({ route }) => {
     },
     [messages, roomId]
   );
+
+  if (querieError) {
+    showErrorModal("Something went wrong while retrieving data. Try again.");
+  }
+  if (mutationError) {
+    showErrorModal("Something went wrong while sending data. Try again.");
+  }
 
   if (!data) return null;
 

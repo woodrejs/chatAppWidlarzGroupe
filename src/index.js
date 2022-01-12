@@ -1,24 +1,21 @@
 import React from "react";
-import { StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 import Navigation from "./routes";
-import { SafeAreaProvider } from "react-native-safe-area-context";
 import { useSelector } from "react-redux";
 import ErrorModal from "./components/ErrorModal";
+import { COLORS } from "../style/colors";
+import { StyleSheet } from "react-native";
 
 export const App = () => {
-  const error = useSelector(({ errorSlice }) => errorSlice.error);
-
-  if (error) return <ErrorModal />;
+  const isError = useSelector(({ errorSlice }) => errorSlice.isError);
 
   return (
-    <SafeAreaProvider style={styles.container}>
-      <Navigation />
-    </SafeAreaProvider>
+    <SafeAreaView style={styles.container}>
+      {isError ? <ErrorModal /> : <Navigation />}
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+  container: { flex: 1, backgroundColor: COLORS.blue[300] },
 });
