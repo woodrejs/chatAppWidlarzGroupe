@@ -108,12 +108,10 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLORS.blue[300],
     paddingHorizontal: 16,
-    paddingVertical: 30,
   },
   form: { flex: 1 },
   buttonBox: { marginTop: 264 },
-  header: { ...TEXT.heading.h1, color: COLORS.plum[500], marginBottom: 24 },
-  footer: { marginTop: 16 },
+  header: { ...TEXT.heading.h1, color: COLORS.plum[500], height: 110, lineHeight: 110 },
   info: {
     fontSize: 13,
     lineHeight: 16,
@@ -125,7 +123,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     marginTop: 28,
-    alignItems: "center",
+    alignItems: "flex-start",
+    height: 50,
   },
   loginInfo: {
     fontSize: 14,

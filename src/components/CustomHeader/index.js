@@ -4,6 +4,7 @@ import { COLORS } from "../../../style/colors";
 import { TEXT } from "../../../style/texts";
 import CustomIcon from "../CustomIcon";
 import { useSelector } from "react-redux";
+import HeaderButton from "./HeaderButton";
 
 export default CustomHeader = ({ route }) => {
   const routeName = route.route.name;
@@ -36,8 +37,8 @@ export default CustomHeader = ({ route }) => {
             </View>
 
             <View style={styles.iconBox}>
-              <CustomIcon name="phone" />
-              <CustomIcon name="videocall" />
+              <HeaderButton name="phone" />
+              <HeaderButton name="videocall" />
             </View>
           </>
         )}
@@ -45,8 +46,8 @@ export default CustomHeader = ({ route }) => {
           <>
             <Text style={styles.header}>{routeName}</Text>
             <View style={styles.iconBox}>
-              <CustomIcon name="search" />
-              <CustomIcon name="rooms" />
+              <HeaderButton name="search" />
+              <HeaderButton name="rooms" />
             </View>
           </>
         )}
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
   },
   box: {
     backgroundColor: COLORS.blue[300],
-    height: 120,
+    height: 100,
     borderBottomEndRadius: 24,
     borderBottomStartRadius: 24,
     padding: 16,
