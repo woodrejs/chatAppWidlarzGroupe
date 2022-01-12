@@ -40,7 +40,7 @@ export default Login = () => {
         resetForm();
         navigation.navigate("Rooms");
       } catch (error) {
-        showErrorModal("Sorry, there was an login error. Try again.");
+        showErrorModal("Invalid login password or email. Try again.");
       }
     }
   };
