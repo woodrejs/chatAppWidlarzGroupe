@@ -1,18 +1,11 @@
 import moment from "moment";
 
 export function isActive(lastMessageDate) {
-  const lastPost = moment(lastMessageDate).unix();
-  const today = moment().unix();
-  return secondsToTime(today - lastPost);
-}
-export function secondsToTime(millis) {
-  const days = Math.floor(millis / (24 * 60 * 60));
-  const hours = Math.floor((millis / (60 * 60)) % 24);
-  const minutes = Math.floor((millis / 60) % 60);
+  const time = moment(`${lastMessageDate}+0000`).unix();
+  const now = moment().unix();
+  const difference = now - time;
 
-  if (days > 1) return `${days} d ago`;
-  if (hours > 1) return `${hours} h ago`;
-  if (minutes > 5) return `${minutes} m ago`;
-
+  if (difference > 3600) return "few hours ago";
+  if (difference > 60) return `${Math.floor(difference / 60)} m ago`;
   return 0;
 }

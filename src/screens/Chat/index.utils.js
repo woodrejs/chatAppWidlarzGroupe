@@ -75,3 +75,28 @@ export const renderBubble = (props) => (
     }}
   />
 );
+export function changeMessagesFormat(arr) {
+  if (!arr) return [];
+  return arr.map(({ id, body, insertedAt, user }) => ({
+    _id: id,
+    text: body,
+    createdAt: insertedAt,
+    user: {
+      _id: user.id,
+      name: `${user.firstName} ${user.lastName}`,
+    },
+  }));
+}
+export function changeSingleMessageFormat(message) {
+  if (!message) return null;
+
+  return {
+    _id: message.id,
+    text: message.body,
+    createdAt: message.insertedAt,
+    user: {
+      _id: message.user.id,
+      name: `${message.user.firstName} ${message.user.lastName}`,
+    },
+  };
+}

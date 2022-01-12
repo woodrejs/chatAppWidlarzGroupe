@@ -8,9 +8,7 @@ import useError from "../../hooks/useError";
 
 export default Rooms = () => {
   const { showErrorModal } = useError();
-  const { loading, error, data } = useQuery(QUERIES.GET_USER_ROOMS, {
-    pollInterval: 500,
-  });
+  const { loading, error, data } = useQuery(QUERIES.GET_USER_ROOMS);
 
   if (error) {
     showErrorModal("Something went wrong while retrieving data. Try again.");
@@ -27,8 +25,8 @@ export default Rooms = () => {
 
   return (
     <ScrollView style={styles.container}>
-      {data.usersRooms.rooms.map(({ id }) => (
-        <SingleRoom key={id} id={id} />
+      {data.usersRooms.rooms.map(({ id, name }) => (
+        <SingleRoom key={id} id={id} name={name} />
       ))}
     </ScrollView>
   );

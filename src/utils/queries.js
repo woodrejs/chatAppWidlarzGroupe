@@ -6,6 +6,7 @@ export const QUERIES = {
       usersRooms {
         rooms {
           id
+          name
         }
       }
     }
@@ -13,13 +14,18 @@ export const QUERIES = {
   GET_SINGLE_ROOM: gql`
     query getSingleRoom($id: String!) {
       room(id: $id) {
-        id
-        name
         messages {
+          id
           body
           insertedAt
+          user {
+            id
+            firstName
+            lastName
+          }
         }
         user {
+          id
           firstName
           lastName
         }
@@ -50,6 +56,18 @@ export const QUERIES = {
       sendMessage(body: $body, roomId: $roomId) {
         id
         body
+        insertedAt
+        user {
+          id
+        }
+      }
+    }
+  `,
+  CHAT_SUBSCRIPTION: gql`
+    subscription messageAdded($roomId: String!) {
+      messageAdded(roomId: $roomId) {
+        body
+        id
         insertedAt
         user {
           id

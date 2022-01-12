@@ -1,62 +1,61 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { GiftedChat } from "react-native-gifted-chat";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation, useSubscription, useQuery } from "@apollo/client";
 import { QUERIES } from "../../utils/queries";
-import { renderInputToolbar, renderBubble } from "./index.utils";
 import useError from "../../hooks/useError";
+import {
+  renderInputToolbar,
+  renderBubble,
+  changeSingleMessageFormat,
+  changeMessagesFormat,
+} from "./index.utils";
 
 export default Chat = ({ route }) => {
+  const { roomId, userId } = route.params;
   const [messages, setMessages] = useState([]);
-  const { roomId } = route.params;
   const { showErrorModal } = useError();
-  const [sendMessage, { error: mutationError }] = useMutation(QUERIES.SEND_MESSAGE);
-  const {
-    loading,
-    error: querieError,
-    data,
-  } = useQuery(QUERIES.GET_CHAT_ROOM, {
+
+  const [sendMessage] = useMutation(QUERIES.SEND_MESSAGE);
+  const { data: subscriptionData, error: subscriptionError } = useSubscription(
+    QUERIES.CHAT_SUBSCRIPTION,
+    { variables: { roomId } }
+  );
+  const { data: queryData, error: queryError } = useQuery(QUERIES.GET_SINGLE_ROOM, {
     variables: { id: roomId },
-    pollInterval: 500,
+    fetchPolicy: "network-only",
+    nextFetchPolicy: "cache-first",
   });
 
+  const handleSend = (messages = []) => {
+    sendMessage({ variables: { body: messages[0].text, roomId } });
+  };
+
   useEffect(() => {
-    if (data) {
-      const posts = data.room.messages.map(({ id, body, insertedAt, user }) => ({
-        _id: id,
-        text: body,
-        createdAt: insertedAt,
-        user: {
-          _id: user.id,
-          name: `${user.firstName} ${user.lastName}`,
-        },
-      }));
-      setMessages(posts);
+    if (queryData) {
+      setMessages(changeMessagesFormat(queryData.room.messages));
     }
-  }, [data]);
+  }, [queryData]);
 
-  const onSend = useCallback(
-    (messages = []) => {
-      sendMessage({ variables: { body: messages[0].text, roomId } });
-    },
-    [messages, roomId]
-  );
+  useEffect(() => {
+    if (subscriptionData) {
+      setMessages(() =>
+        GiftedChat.append(
+          messages,
+          changeSingleMessageFormat(subscriptionData.messageAdded)
+        )
+      );
+    }
+  }, [subscriptionData]);
 
-  if (querieError) {
+  if (queryError && subscriptionError) {
     showErrorModal("Something went wrong while retrieving data. Try again.");
   }
-  if (mutationError) {
-    showErrorModal("Something went wrong while sending data. Try again.");
-  }
-
-  if (!data) return null;
 
   return (
     <GiftedChat
       messages={messages}
-      onSend={(messages) => onSend(messages)}
-      user={{
-        _id: data.room.user.id,
-      }}
+      onSend={(messages) => handleSend(messages)}
+      user={{ _id: userId }}
       renderBubble={renderBubble}
       renderInputToolbar={renderInputToolbar}
       renderAvatar={() => null}
