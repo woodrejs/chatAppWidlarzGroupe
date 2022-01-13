@@ -1,4 +1,4 @@
-import React,{memo} from "react";
+import React, { memo } from "react";
 import { StyleSheet, ScrollView, View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS } from "../../../style/colors";
@@ -38,7 +38,6 @@ export default Login = memo(() => {
           variables: { email: values.email, password: values.password },
         });
         dispatch(login([resp.data.loginUser.token, resp.data.loginUser.user]));
-        resetForm();
         navigation.navigate("Rooms");
       } catch (error) {
         showErrorModal("Invalid login password or email. Try again.");
@@ -52,7 +51,7 @@ export default Login = memo(() => {
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>Welcome back</Text>
-      <Text style={styles.subHeader}>Log in and stay in touch with everyone!</Text>
+      <Text  style={styles.subHeader}>Log in and stay in touch with everyone!</Text>
 
       <Formik
         initialValues={{
@@ -63,7 +62,7 @@ export default Login = memo(() => {
         onSubmit={handlerSubmit}
       >
         {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
-          <View style={styles.form}>
+          <View  style={styles.form}>
             <CustomInput
               label="e-mail adress"
               name="email"

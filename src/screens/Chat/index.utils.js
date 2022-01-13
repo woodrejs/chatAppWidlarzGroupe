@@ -1,11 +1,13 @@
 import { Bubble, InputToolbar, Composer, Send } from "react-native-gifted-chat";
 import { COLORS } from "../../../style/colors";
 import CustomIcon from "../../components/CustomIcon";
+import React, { useState, useEffect } from "react";
+import { Keyboard, Text, TextInput, StyleSheet, View } from "react-native";
 
 export const renderInputToolbar = (props) => (
   <InputToolbar
     {...props}
-    renderComposer={renderComposer}
+    renderComposer={() => <RenderComposer {...props} />}
     renderSend={renderSend}
     containerStyle={{
       padding: 12,
@@ -16,22 +18,43 @@ export const renderInputToolbar = (props) => (
     }}
   />
 );
-export const renderComposer = (props) => (
-  <Composer
-    {...props}
-    textInputStyle={{
-      height: 41,
-      backgroundColor: COLORS.white,
-      borderRadius: 12,
-      borderBottomRightRadius: 0,
-      padding: 12,
-      fontSize: 14,
-      fontStyle: "normal",
-      lineHeight: 16.71,
-      margin: 0,
-    }}
-  />
-);
+export const RenderComposer = (props) => {
+  const [isFocus, setIsFocus] = useState(undefined);
+
+  const _keyboardDidShow = () => setIsFocus(true);
+  const _keyboardDidHide = () => setIsFocus(false);
+
+  useEffect(() => {
+    Keyboard.addListener("keyboardDidShow", _keyboardDidShow);
+    Keyboard.addListener("keyboardDidHide", _keyboardDidHide);
+
+    return () => {
+      Keyboard.removeListener("keyboardDidShow", _keyboardDidShow);
+      Keyboard.removeListener("keyboardDidHide", _keyboardDidHide);
+    };
+  }, []);
+
+  return (
+    <Composer
+      {...props}
+      textInputStyle={{
+        height: 41,
+        backgroundColor: COLORS.white,
+        borderColor: isFocus ? COLORS.plum[500] : "transparent",
+        borderWidth: 2,
+        borderRadius: 12,
+        borderBottomRightRadius: 0,
+        padding: 12,
+        fontSize: 14,
+        fontStyle: "normal",
+        lineHeight: 16.71,
+        margin: 0,
+      }}
+      placeholder=""
+      onContentSizeChange={() => console.log("chane")}
+    />
+  );
+};
 export const renderSend = (props) => (
   <Send
     {...props}
@@ -40,6 +63,7 @@ export const renderSend = (props) => (
       marginLeft: 17,
       marginRight: 4,
     }}
+    alwaysShowSend
   >
     <CustomIcon name="send" />
   </Send>

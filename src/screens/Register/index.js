@@ -54,7 +54,6 @@ export default Register = memo(() => {
         });
 
         dispatch(login([resp.data.loginUser.token, resp.data.loginUser.user]));
-        resetForm();
         navigation.navigate("Rooms");
       } catch (error) {
         console.log(error);
