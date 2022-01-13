@@ -1,16 +1,10 @@
-import React from "react";
+import React, { memo } from "react";
 import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
 import { COLORS } from "../../../style/colors";
 import { TEXT } from "../../../style/texts";
+import { isEmpty } from "./index.utils";
 
-function isEmpty(obj) {
-  for (var key in obj) {
-    if (obj.hasOwnProperty(key)) return false;
-  }
-  return true;
-}
-
-export default CustomButton = ({ label, handlePress, isDisabled }) => {
+export default CustomButton = memo(({ label, handlePress, isDisabled }) => {
   return (
     <TouchableHighlight onPress={handlePress} style={styles.box}>
       <View
@@ -23,7 +17,7 @@ export default CustomButton = ({ label, handlePress, isDisabled }) => {
       </View>
     </TouchableHighlight>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

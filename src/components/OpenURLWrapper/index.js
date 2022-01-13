@@ -1,7 +1,7 @@
-import React, { useCallback } from "react";
+import React, { useCallback,memo } from "react";
 import { Alert, Linking, TouchableOpacity, View } from "react-native";
 
-export default OpenURLWrapper = ({ url, children }) => {
+export default OpenURLWrapper = memo(({ url, children }) => {
   const handlePress = useCallback(async () => {
     const supported = await Linking.canOpenURL(url);
 
@@ -17,4 +17,4 @@ export default OpenURLWrapper = ({ url, children }) => {
       <View>{children}</View>
     </TouchableOpacity>
   );
-};
+});

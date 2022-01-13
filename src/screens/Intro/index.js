@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect,memo } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { COLORS } from "../../../style/colors";
 import { useNavigation } from "@react-navigation/native";
 
-export default Intro = () => {
+export default Intro = memo(() => {
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default Intro = () => {
       <Text style={styles.subHeader}>mobile app</Text>
     </View>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

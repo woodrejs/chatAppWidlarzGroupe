@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { StyleSheet, View, ScrollView, Text, ActivityIndicator } from "react-native";
 import SingleRoom from "../../components/SingleRoom";
 import { COLORS } from "../../../style/colors";
@@ -8,7 +8,7 @@ import useError from "../../hooks/useError";
 import { TEXT } from "../../../style/texts";
 import Loader from "../../components/Loader";
 
-export default Rooms = () => {
+export default Rooms = memo(() => {
   const { showErrorModal } = useError();
   const { loading, error, data } = useQuery(QUERIES.GET_USER_ROOMS);
 
@@ -36,7 +36,7 @@ export default Rooms = () => {
       ))}
     </ScrollView>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: { paddingTop: 36, backgroundColor: COLORS.blue[100], flex: 1 },

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { memo } from "react";
 import { ICONS } from "../../../style/icons";
 import { COLORS } from "../../../style/colors";
 import { MaterialIcons, AntDesign } from "@expo/vector-icons";
 
-export default CustomIcon = ({ name, iconSize, circleSize, iconColor, cirlceColor }) => {
+export default CustomIcon = memo(({ name, iconSize, circleSize, iconColor, cirlceColor }) => {
   switch (name) {
     case "phone":
       return ICONS.phone(iconSize, circleSize, iconColor, cirlceColor);
@@ -30,4 +30,4 @@ export default CustomIcon = ({ name, iconSize, circleSize, iconColor, cirlceColo
     default:
       return null;
   }
-};
+});

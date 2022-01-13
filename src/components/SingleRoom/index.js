@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,memo } from "react";
 import { StyleSheet, Text, View, TouchableWithoutFeedback } from "react-native";
 import { TEXT } from "../../../style/texts";
 import { COLORS } from "../../../style/colors";
@@ -12,7 +12,7 @@ import { setUser } from "../../redux/chat.slice";
 import useError from "../../hooks/useError";
 import { useIsFocused } from "@react-navigation/native";
 
-export default SingleRoom = ({ id, name }) => {
+export default SingleRoom = memo(({ id, name }) => {
   const [status, setStatus] = useState(true);
   const [lastMessage, setLastMessage] = useState("");
   const dispatch = useDispatch();
@@ -109,7 +109,7 @@ export default SingleRoom = ({ id, name }) => {
       </View>
     </TouchableWithoutFeedback>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

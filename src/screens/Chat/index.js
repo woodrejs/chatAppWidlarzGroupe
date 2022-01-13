@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect,memo } from "react";
 import { GiftedChat } from "react-native-gifted-chat";
 import { useMutation, useSubscription, useQuery } from "@apollo/client";
 import { QUERIES } from "../../utils/queries";
@@ -10,7 +10,7 @@ import {
   changeMessagesFormat,
 } from "./index.utils";
 
-export default Chat = ({ route }) => {
+export default Chat = memo(({ route }) => {
   const { roomId, userId } = route.params;
   const [messages, setMessages] = useState([]);
   const { showErrorModal } = useError();
@@ -64,4 +64,4 @@ export default Chat = ({ route }) => {
       messagesContainerStyle={{ paddingBottom: 32 }}
     />
   );
-};
+});

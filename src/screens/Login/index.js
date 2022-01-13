@@ -1,4 +1,4 @@
-import React from "react";
+import React,{memo} from "react";
 import { StyleSheet, ScrollView, View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS } from "../../../style/colors";
@@ -25,7 +25,7 @@ const loginValidationSchema = yup.object().shape({
     .required("Password is required"),
 });
 
-export default Login = () => {
+export default Login = memo(() => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { showErrorModal } = useError();
@@ -101,7 +101,7 @@ export default Login = () => {
       </View>
     </ScrollView>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {

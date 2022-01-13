@@ -1,4 +1,4 @@
-import React from "react";
+import React,{memo} from "react";
 import { StyleSheet, ScrollView, View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS } from "../../../style/colors";
@@ -38,7 +38,7 @@ const registerValidationSchema = yup.object().shape({
     .required("Password confirmation is required"),
 });
 
-export default Register = () => {
+export default Register = memo(() => {
   const navigation = useNavigation();
   const dispatch = useDispatch();
   const { showErrorModal } = useError();
@@ -159,7 +159,7 @@ export default Register = () => {
       </View>
     </ScrollView>
   );
-};
+});
 
 const styles = StyleSheet.create({
   container: {
