@@ -1,8 +1,8 @@
-import { Bubble, InputToolbar, Composer, Send } from "react-native-gifted-chat";
-import { COLORS } from "../../../style/colors";
-import CustomIcon from "../../components/CustomIcon";
 import React, { useState, useEffect } from "react";
-import { Keyboard, Text, TextInput, StyleSheet, View } from "react-native";
+import CustomIcon from "../../components/CustomIcon";
+import { Bubble, InputToolbar, Composer, Send } from "react-native-gifted-chat";
+import { COLORS } from "../../style/colors";
+import { Keyboard } from "react-native";
 
 export const renderInputToolbar = (props) => (
   <InputToolbar
@@ -51,7 +51,6 @@ export const RenderComposer = (props) => {
         margin: 0,
       }}
       placeholder=""
-      onContentSizeChange={() => console.log("chane")}
     />
   );
 };

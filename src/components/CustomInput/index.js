@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text, TextInput } from "react-native";
-import { COLORS } from "../../../style/colors";
-import { TEXT } from "../../../style/texts";
-import { getBorderColor } from "./index.utils";
 import CustomIcon from "../CustomIcon";
+import { COLORS } from "../../style/colors";
+import { TEXT } from "../../style/texts";
+import { getBorderColor } from "./index.utils";
 
 export default CustomInput = ({
   label,

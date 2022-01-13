@@ -1,8 +1,8 @@
 import React, { useState, useEffect,memo } from "react";
+import useError from "../../hooks/useError";
 import { GiftedChat } from "react-native-gifted-chat";
 import { useMutation, useSubscription, useQuery } from "@apollo/client";
 import { QUERIES } from "../../utils/queries";
-import useError from "../../hooks/useError";
 import {
   renderInputToolbar,
   renderBubble,

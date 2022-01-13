@@ -1,7 +1,7 @@
 import React, { memo } from "react";
 import { StyleSheet, Text, View, TouchableHighlight } from "react-native";
-import { COLORS } from "../../../style/colors";
-import { TEXT } from "../../../style/texts";
+import {COLORS} from '../../style/colors'
+import { TEXT } from "../../style/texts";
 import { isEmpty } from "./index.utils";
 
 export default CustomButton = memo(({ label, handlePress, isDisabled }) => {

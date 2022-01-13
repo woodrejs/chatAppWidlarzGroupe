@@ -1,4 +1,5 @@
-import { COLORS } from "../../../style/colors";
+import { COLORS } from "../../style/colors";
+
 export function getBorderColor(isFocus, isError) {
   if (isError && !isFocus) return COLORS.error;
 

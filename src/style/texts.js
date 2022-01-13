@@ -1,5 +1,3 @@
-import { COLORS } from "./colors";
-
 export const TEXT = {
   button: {
     default: {

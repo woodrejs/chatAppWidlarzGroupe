@@ -1,7 +1,7 @@
 import React, { useState, memo } from "react";
-import { TouchableOpacity } from "react-native";
 import CustomIcon from "../../CustomIcon";
-import { COLORS } from "../../../../style/colors";
+import { TouchableOpacity } from "react-native";
+import { COLORS } from "../../../style/colors";
 
 export default HeaderButton = memo(({ handlerPress = () => null, name }) => {
   const [isActive, setIsActive] = useState(false);

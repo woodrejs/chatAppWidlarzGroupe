@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View, Image, TouchableWithoutFeedback } from "react-native";
-import { COLORS } from "../../../style/colors";
-import { TEXT } from "../../../style/texts";
+import { COLORS } from "../../style/colors";
+import { TEXT } from "../../style/texts";
 import CustomIcon from "../CustomIcon";
 import { useSelector } from "react-redux";
 import HeaderButton from "./HeaderButton";

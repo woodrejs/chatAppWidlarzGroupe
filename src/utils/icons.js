@@ -1,6 +1,6 @@
 import * as React from "react";
 import Svg, { Circle, Path, Mask, G } from "react-native-svg";
-import { COLORS } from "./colors";
+import { COLORS } from "../style/colors";
 
 export const ICONS = {
   phone: (

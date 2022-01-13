@@ -1,11 +1,11 @@
 import React from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import Navigation from "./routes";
-import { useSelector } from "react-redux";
 import ErrorModal from "./components/ErrorModal";
-import { COLORS } from "../style/colors";
-import { StyleSheet } from "react-native";
+import { useSelector } from "react-redux";
 import { ApolloProvider } from "@apollo/client";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { COLORS } from "./style/colors";
+import { StyleSheet } from "react-native";
 import { setClient } from "./utils/client";
 
 export const App = () => {

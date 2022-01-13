@@ -1,42 +1,19 @@
-import React,{memo} from "react";
-import { StyleSheet, ScrollView, View, Text, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { COLORS } from "../../../style/colors";
-import { TEXT } from "../../../style/texts";
-import { Formik } from "formik";
+import React, { memo } from "react";
+import useError from "../../hooks/useError";
+import Loader from "../../components/Loader";
 import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
 import OpenURLWrapper from "../../components/OpenURLWrapper";
-import * as yup from "yup";
+import { StyleSheet, ScrollView, View, Text, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { COLORS } from "../../style/colors";
+import { TEXT } from "../../style/texts";
+import { Formik } from "formik";
+import { registerValidationSchema } from "../../utils/validations";
 import { QUERIES } from "../../utils/queries";
 import { useMutation } from "@apollo/client";
 import { login } from "../../redux/auth.slice";
 import { useDispatch } from "react-redux";
-import useError from "../../hooks/useError";
-import Loader from "../../components/Loader";
-
-const registerValidationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Please enter valid email")
-    .required("Email Address is Required"),
-  firstName: yup
-    .string()
-    .min(3, ({ min }) => `First name must be at least ${min} characters`)
-    .required("First name is required"),
-  lastName: yup
-    .string()
-    .min(3, ({ min }) => `Last name must be at least ${min} characters`)
-    .required("Last name is required"),
-  password: yup
-    .string()
-    .min(8, ({ min }) => `Password must be at least ${min} characters`)
-    .required("Password is required"),
-  passwordConfirmation: yup
-    .string()
-    .oneOf([yup.ref("password")], "Passwords confirmation must match password.")
-    .required("Password confirmation is required"),
-});
 
 export default Register = memo(() => {
   const navigation = useNavigation();
@@ -56,7 +33,6 @@ export default Register = memo(() => {
         dispatch(login([resp.data.loginUser.token, resp.data.loginUser.user]));
         navigation.navigate("Rooms");
       } catch (error) {
-        console.log(error);
         showErrorModal("Sorry, there was an register error. Try again.");
       }
     }

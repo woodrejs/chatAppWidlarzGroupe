@@ -1,29 +1,18 @@
 import React, { memo } from "react";
-import { StyleSheet, ScrollView, View, Text, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import { COLORS } from "../../../style/colors";
-import { TEXT } from "../../../style/texts";
-import { Formik } from "formik";
 import CustomInput from "../../components/CustomInput";
 import CustomButton from "../../components/CustomButton";
-import * as yup from "yup";
+import useError from "../../hooks/useError";
+import Loader from "../../components/Loader";
+import { StyleSheet, ScrollView, View, Text, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { COLORS } from "../../style/colors";
+import { TEXT } from "../../style/texts";
+import { Formik } from "formik";
 import { QUERIES } from "../../utils/queries";
 import { useMutation } from "@apollo/client";
 import { login } from "../../redux/auth.slice";
 import { useDispatch } from "react-redux";
-import useError from "../../hooks/useError";
-import Loader from "../../components/Loader";
-
-const loginValidationSchema = yup.object().shape({
-  email: yup
-    .string()
-    .email("Please enter valid email")
-    .required("Email Address is Required"),
-  password: yup
-    .string()
-    .min(8, ({ min }) => `Password must be at least ${min} characters`)
-    .required("Password is required"),
-});
+import { loginValidationSchema } from "../../utils/validations";
 
 export default Login = memo(() => {
   const navigation = useNavigation();
@@ -51,7 +40,7 @@ export default Login = memo(() => {
   return (
     <ScrollView style={styles.container}>
       <Text style={styles.header}>Welcome back</Text>
-      <Text  style={styles.subHeader}>Log in and stay in touch with everyone!</Text>
+      <Text style={styles.subHeader}>Log in and stay in touch with everyone!</Text>
 
       <Formik
         initialValues={{
@@ -62,7 +51,7 @@ export default Login = memo(() => {
         onSubmit={handlerSubmit}
       >
         {({ handleChange, handleBlur, handleSubmit, values, errors }) => (
-          <View  style={styles.form}>
+          <View style={styles.form}>
             <CustomInput
               label="e-mail adress"
               name="email"

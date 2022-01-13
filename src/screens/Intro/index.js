@@ -1,6 +1,6 @@
 import React, { useEffect,memo } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import { COLORS } from "../../../style/colors";
+import { COLORS } from "../../style/colors";
 import { useNavigation } from "@react-navigation/native";
 
 export default Intro = memo(() => {

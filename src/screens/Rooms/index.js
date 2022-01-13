@@ -1,12 +1,12 @@
 import React, { memo } from "react";
-import { StyleSheet, View, ScrollView, Text, ActivityIndicator } from "react-native";
+import useError from "../../hooks/useError";
+import Loader from "../../components/Loader";
 import SingleRoom from "../../components/SingleRoom";
-import { COLORS } from "../../../style/colors";
+import { StyleSheet, View, ScrollView, Text } from "react-native";
+import { COLORS } from "../../style/colors";
 import { useQuery } from "@apollo/client";
 import { QUERIES } from "../../utils/queries";
-import useError from "../../hooks/useError";
-import { TEXT } from "../../../style/texts";
-import Loader from "../../components/Loader";
+import { TEXT } from "../../style/texts";
 
 export default Rooms = memo(() => {
   const { showErrorModal } = useError();

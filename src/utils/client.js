@@ -1,12 +1,10 @@
+import * as AbsintheSocket from "@absinthe/socket";
+import PhoenixSocket from "../components/Socket";
+import { createAbsintheSocketLink } from "@absinthe/socket-apollo-link";
 import { ApolloClient, InMemoryCache, split, HttpLink } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
-import * as AbsintheSocket from "@absinthe/socket";
-import { createAbsintheSocketLink } from "@absinthe/socket-apollo-link";
 import { hasSubscription } from "@jumpn/utils-graphql";
-import PhoenixSocket from "../components/Socket";
-
-const URL = "https://chat.thewidlarzgroup.com/api/graphiql";
-const WSURL = "wss://chat.thewidlarzgroup.com/socket";
+import { URL, WSURL } from "./consts";
 
 export const setClient = (token) => {
   const httpLink = new HttpLink({ uri: URL });

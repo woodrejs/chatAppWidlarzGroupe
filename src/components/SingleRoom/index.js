@@ -1,15 +1,15 @@
 import React, { useState, useEffect,memo } from "react";
-import { StyleSheet, Text, View, TouchableWithoutFeedback } from "react-native";
-import { TEXT } from "../../../style/texts";
-import { COLORS } from "../../../style/colors";
-import { useNavigation } from "@react-navigation/native";
 import CustomIcon from "../CustomIcon";
-import { useQuery, useSubscription, gql } from "@apollo/client";
+import useError from "../../hooks/useError";
+import { StyleSheet, Text, View, TouchableWithoutFeedback } from "react-native";
+import { TEXT } from "../../style/texts";
+import { COLORS } from "../../style/colors";
+import { useNavigation } from "@react-navigation/native";
+import { useQuery, useSubscription } from "@apollo/client";
 import { QUERIES } from "../../utils/queries";
 import { isActive } from "./index.utils";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../redux/chat.slice";
-import useError from "../../hooks/useError";
 import { useIsFocused } from "@react-navigation/native";
 
 export default SingleRoom = memo(({ id, name }) => {

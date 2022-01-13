@@ -1,10 +1,10 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
-import { useSelector } from "react-redux";
 import useError from "../../hooks/useError";
 import CustomButton from "../CustomButton";
-import { COLORS } from "../../../style/colors";
-import { TEXT } from "../../../style/texts";
+import { StyleSheet, Text, View } from "react-native";
+import { useSelector } from "react-redux";
+import { COLORS } from "../../style/colors";
+import { TEXT } from "../../style/texts";
 
 export default ErrorModal = () => {
   const { message } = useSelector(({ errorSlice }) => errorSlice);
